@@ -11,7 +11,7 @@ A simple Project Management System application built with Java. This application
     -   Member 1: La Thien Toan
     -   Member 2: Le Nguyen Hai Dang
     -   Member 3: Phan Van Hoa Thuan
-    -   Member 4: Tran Phan Nhat Huy
+    -   Member 4: Nguyen Tri Phong
     -   Member 5: Ho Quang Thanh
 
 ## Project Features
@@ -28,7 +28,7 @@ To set up the project locally, follow these steps:
     ```bash
     cd G3.SE1816-ProjectManagementSystem
     ```
-3. **How to push src**
+3. **Push src to github:**
     ```bash
     git add .
     git commit -m "comment"
