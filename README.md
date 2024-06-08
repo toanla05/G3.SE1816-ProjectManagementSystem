@@ -34,3 +34,8 @@ To set up the project locally, follow these steps:
     git commit -m "comment"
     git push
     ```
+
+4. **Synchronization git repository:**
+    ```bash
+    git pull
+    ```
