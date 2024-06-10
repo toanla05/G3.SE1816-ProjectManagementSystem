@@ -176,12 +176,11 @@ public class User {
     public void clearConsole() {
         try {
             if (System.getProperty("os.name").contains("Windows"))
-                new ProcessBuilder("cmd", "/c",
-                        "cls").inheritIO().start().waitFor();
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             else
-                Runtime.getRuntime().exec("clear");
-        } catch (IOException | InterruptedException ex) {
-        }
+                //Runtime.getRuntime().exec("clear");
+		new ProcessBuilder("clear").inheritIO().start().waitFor();
+        } catch (IOException | InterruptedException ex) {}
     }
 
     private String md5Hash(String text) {
