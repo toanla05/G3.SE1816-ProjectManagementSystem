@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.*;
 import java.math.BigInteger;
@@ -8,7 +9,7 @@ public class User {
     Scanner sc = new Scanner(System.in);
     private String userName, userPass;
 
-    public String userWelcome() {
+    public void userWelcome() {
         System.out.println("            PROJECT MANAGEMENT SYSTEM");
         System.out.println("               ## WELCOME PAGE ##\n");
         System.out.println("    [1] Sign in");
@@ -26,24 +27,25 @@ public class User {
                     sc.nextLine();
                     break;
                 }
-            } catch (Exception e) {
+            } catch (InputMismatchException ime) {
                 System.out.println("*Error: option is a number!\n");
                 sc.nextLine();
             }
         }
 
-        clearConsole();
+        Main.clearConsole();
         switch (option) {
             case 1:
-                return userSignIn();
+                this.userName = userSignIn();
+                break;
             case 2:
-                return userSignUp();
+                this.userName = userSignUp();
+                break;
         }
-        return null;
     }
 
     // Sign in
-    public String userSignIn() {
+    private String userSignIn() {
         System.out.println("            PROJECT MANAGEMENT PROJECT");
         System.out.println("                ## SIGN-IN PAGE ##\n");
 
@@ -84,7 +86,8 @@ public class User {
                         line++;
                         lineText = fileRead.nextLine();
                         if (lineText.equals(md5Hash(userPass))) {
-                            System.out.print("\n=> Sign-in successfully...");
+                            System.out.println("\n=> Sign-in successfully!");
+                            System.out.print("Press ENTER to continue...");
                             sc.nextLine();
                             check = true;
                             break;
@@ -93,7 +96,7 @@ public class User {
                     line++;
                 }
                 fileRead.close();
-            } catch (Exception e) {
+            } catch (FileNotFoundException fnfe) {
                 System.out.println("*Error: no file data for checking!\n");
             }
 
@@ -106,7 +109,7 @@ public class User {
     }
 
     // Sign Up
-    public String userSignUp() {
+    private String userSignUp() {
         System.out.println("            PROJECT MANAGEMENT SYSTEM");
         System.out.println("               ## SIGN-UP PAGE ##\n");
 
@@ -160,29 +163,23 @@ public class User {
         userPass = md5Hash(userPass);
 
         // Add user to File
-        try {
-            FileWriter users = new FileWriter("data/userAccount/users.txt", true);
-            users.write(userName + '\n');
-            users.write(userPass + '\n');
-            users.close();
-            System.out.print("\n=> Account successfully created!");
-            sc.nextLine();
-            return userName;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        while (true) {
+            try {
+                FileWriter users = new FileWriter("data/userAccount/users.txt", true);
+                users.write(userName + '\n');
+                users.write(userPass + '\n');
+                users.close();
+                System.out.println("\n=> Sign-up successfully!");
+                System.out.print("Press ENTER to continue...");
+                sc.nextLine();
+                return userName;
+            } catch (IOException ioe) {
+                System.out.println("*Error: not find data file to write!\n");
+            }
         }
     }
 
-    public void clearConsole() {
-        try {
-            if (System.getProperty("os.name").contains("Windows"))
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            else
-                //Runtime.getRuntime().exec("clear");
-		new ProcessBuilder("clear").inheritIO().start().waitFor();
-        } catch (IOException | InterruptedException ex) {}
-    }
-
+    // MD5 hash String
     private String md5Hash(String text) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -192,5 +189,10 @@ public class User {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    // Get userName
+    public String getUserName() {
+        return userName;
     }
 }
