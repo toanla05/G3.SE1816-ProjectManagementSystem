@@ -257,7 +257,7 @@ public class ProjectManagement {
 		// Ask for each task's information
 		for (int i = 1; i <= numberOfTask; i++) {
 			// print header
-			System.out.println("-".repeat(10));
+			System.out.println(repeat("-", 10));
 			System.out.println("Task " + i);
 
 			// Ask for task's ID
@@ -393,6 +393,10 @@ public class ProjectManagement {
 
 		// Print message to user
 		System.out.println(">>> Project has created and added to database successfully!");
+	}
+
+	public void updateProject () {
+		System.out.println("Testing update project");
 	}
 
 	/* Public methods end */

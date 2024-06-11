@@ -156,7 +156,7 @@ public class Project {
 
 	//Display project
 	public void displayProject (int index) {
-		System.out.println("-".repeat(20));
+		System.out.println(repeat("-", 20));
 		System.out.printf("Project %d: %.2f%%\n", index, calculateProgress());
 		System.out.printf(">>> ID: %s\n", ID);
 		System.out.printf(">>> Name: %s\n", name);
@@ -164,12 +164,12 @@ public class Project {
 		System.out.printf(">>> Category: %s\n", category);
 		System.out.printf(">>> Start date: %s\n", parseDate(startDate));
 		System.out.printf(">>> End date: %s\n", parseDate(endDate));
-		System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", "-".repeat(7), "-".repeat(32), "-".repeat(52), "-".repeat(12), "-".repeat(12), "-".repeat(12), "-".repeat(12));
+		System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", repeat("-", 7), repeat("-", 32), repeat("-", 52), repeat("-", 12), repeat("-", 12), repeat("-", 12), repeat("-", 12));
 		System.out.printf("| %-5s | %-30s | %-50s | %10s | %10s | %10s | %10s |\n", "ID", "Name", "Description", "Start date", "End date", "Complete?", "Budget");
 		System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", repeat("-", 7), repeat("-", 32), repeat("-", 52), repeat("-", 12), repeat("-", 12), repeat("-", 12), repeat("-", 12));
 		for (Task task : listTasks) {
 			task.displayTask();
-        	}
+        }
 	}
 }
 
