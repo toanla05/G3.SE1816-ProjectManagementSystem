@@ -361,12 +361,7 @@ public class ProjectManagement {
 			// Handle each case
 			if (option.equals("N")) {
 				// create normal task
-				Task task = new Task();
-				task.setID(taskID);
-				task.setName(taskName);
-				task.setDescription(taskDescription);
-				task.setStartDate(parseToDate(taskStartDate));
-				task.setEndDate(parseToDate(taskEndDate));
+				Task task = new Task(taskID, taskName, taskDescription, parseToDate(taskStartDate), parseToDate(taskEndDate), false);
 				// add task into project's listTasks
 				project.addTask(task);
 				// write to task file
@@ -382,14 +377,8 @@ public class ProjectManagement {
 					cost = sc.nextDouble();
 				}
 				// Create budget task
-				BudgetTask budgetTask = new BudgetTask();
-				budgetTask.setID(taskID);
-				budgetTask.setName(taskName);
-				budgetTask.setDescription(taskDescription);
-				budgetTask.setStartDate(parseToDate(taskStartDate));
-				budgetTask.setEndDate(parseToDate(taskEndDate));
-				budgetTask.setMoney(cost);
-				// add budget task into project's listTasks
+				BudgetTask budgetTask = new BudgetTask(taskID, taskName, taskDescription, parseToDate(taskStartDate), parseToDate(taskEndDate), false, cost);
+				// add task to project's listTasks
 				project.addTask(budgetTask);
 				// write to task file
 				writeTask(budgetTask);

@@ -92,6 +92,14 @@ public class Project {
 	}
 
 	/*Private methods (helper methods)*/
+	private String repeat (String s, int times) {
+		String str = "";
+		while (times > 0) {
+			str = str.concat(s);
+			times--;
+		}
+		return str;
+	}
 
 	/*Public methods*/
 	//parse date to string method
@@ -158,7 +166,7 @@ public class Project {
 		System.out.printf(">>> End date: %s\n", parseDate(endDate));
 		System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", "-".repeat(7), "-".repeat(32), "-".repeat(52), "-".repeat(12), "-".repeat(12), "-".repeat(12), "-".repeat(12));
 		System.out.printf("| %-5s | %-30s | %-50s | %10s | %10s | %10s | %10s |\n", "ID", "Name", "Description", "Start date", "End date", "Complete?", "Budget");
-		System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", "-".repeat(7), "-".repeat(32), "-".repeat(52), "-".repeat(12), "-".repeat(12), "-".repeat(12), "-".repeat(12));
+		System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", repeat("-", 7), repeat("-", 32), repeat("-", 52), repeat("-", 12), repeat("-", 12), repeat("-", 12), repeat("-", 12));
 		for (Task task : listTasks) {
 			task.displayTask();
         	}
