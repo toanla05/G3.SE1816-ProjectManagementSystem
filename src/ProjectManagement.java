@@ -108,7 +108,7 @@ public class ProjectManagement {
 			FileWriter writer = new FileWriter("../data/projects/projects.txt", true);
 
 			// Create string result to write to file
-			String result = project.getID() + "|" + project.getName() + "|" + project.getDescription() + "|"
+			String result = user.getUserName() + "|" + project.getID() + "|" + project.getName() + "|" + project.getDescription() + "|"
 					+ project.getCategory() + "|" +
 					project.parseDate(project.getStartDate()) + "|" + project.parseDate(project.getEndDate()) + "|";
 			for (Task task : project.getListTasks()) {
