@@ -193,7 +193,7 @@ public class ProjectManagement {
 		String description = sc.nextLine();
 		// Handle error if user enter an empty string (or string that only contains
 		// space)
-		while (name.trim().isEmpty()) {
+		while (description.trim().isEmpty()) {
 			System.out.println("Invalid input!!! Description cannot be an empty/all space string!!!");
 			System.out.print("Please enter project's description: ");
 			description = sc.nextLine();
@@ -205,7 +205,7 @@ public class ProjectManagement {
 		String category = sc.nextLine();
 		// Handle error if user enter an empty string (or string that only contains
 		// space)
-		while (name.trim().isEmpty()) {
+		while (category.trim().isEmpty()) {
 			System.out.println("Invalid input!!! Category cannot be an empty/all space string!!!");
 			System.out.print("Please enter project's category: ");
 			category = sc.nextLine();
