@@ -76,8 +76,9 @@ public class User {
 
             // Check userName && userPass correct
             boolean check = false;
+
             try {
-                File file = new File("data/accounts/users.txt");
+                File file = new File("G3.SE1816-ProjectManagementSystem/data/accounts/users.txt");
                 Scanner fileRead = new Scanner(file);
                 int line = 1;
                 while (fileRead.hasNextLine()) {
@@ -124,7 +125,7 @@ public class User {
                 // Check userName existed in data
                 boolean check = true;
                 try {
-                    File file = new File("data/accounts/users.txt");
+                    File file = new File("G3.SE1816-ProjectManagementSystem/data/accounts/users.txt");
                     Scanner fileRead = new Scanner(file);
                     int line = 1;
                     while (fileRead.hasNextLine()) {
@@ -165,7 +166,7 @@ public class User {
         // Add user to File
         while (true) {
             try {
-                FileWriter users = new FileWriter("data/accounts/users.txt", true);
+                FileWriter users = new FileWriter("G3.SE1816-ProjectManagementSystem/data/accounts/users.txt", true);
                 users.write(userName + '\n');
                 users.write(userPass + '\n');
                 users.close();
