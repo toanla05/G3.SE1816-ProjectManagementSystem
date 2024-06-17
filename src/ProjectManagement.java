@@ -396,7 +396,7 @@ public class ProjectManagement {
 	}
 
 	public void updateProject () {
-		System.out.println("Testing update project 2nd times");
+		System.out.println("Thuan Phan test commit");
 	}
 
 	/* Public methods end */
