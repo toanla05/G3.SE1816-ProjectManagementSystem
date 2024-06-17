@@ -76,6 +76,7 @@ public class User {
 
             // Check userName && userPass correct
             boolean check = false;
+
             try {
                 File file = new File("../data/accounts/users.txt");
                 Scanner fileRead = new Scanner(file);
