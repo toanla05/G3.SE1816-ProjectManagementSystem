@@ -80,6 +80,16 @@ public class Task {
         	this.isComplete = isComplete;
     	}
 
+	/*Helper methods*/
+	protected String repeat (String s, int times) {
+		String str = "";
+		while (times > 0) {
+			str = str.concat(s);
+			times--;
+		}
+		return str;
+	}
+
     	/*Public methods*/
 	//parse date to string
     	public String parseDate (Date date) throws IllegalArgumentException {
@@ -91,7 +101,7 @@ public class Task {
     	public void displayTask () {
         	String format = "| %-5s | %-30s | %-50s | %10s | %10s | %10s | %10s |\n";
         	System.out.printf(format, ID, name, description, parseDate(startDate), parseDate(endDate), isComplete, "_");
-        	System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", "-".repeat(7), "-".repeat(32), "-".repeat(52), "-".repeat(12), "-".repeat(12), "-".repeat(12), "-".repeat(12));
+        	System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", repeat("-", 7), repeat("-", 32), repeat("-", 52), repeat("-", 12), repeat("-", 12), repeat("-", 12), repeat("-", 12));
     	}
 }
 

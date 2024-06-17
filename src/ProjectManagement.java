@@ -108,7 +108,7 @@ public class ProjectManagement {
 			FileWriter writer = new FileWriter("../data/projects/projects.txt", true);
 
 			// Create string result to write to file
-			String result = project.getID() + "|" + project.getName() + "|" + project.getDescription() + "|"
+			String result = user.getUserName() + "|" + project.getID() + "|" + project.getName() + "|" + project.getDescription() + "|"
 					+ project.getCategory() + "|" +
 					project.parseDate(project.getStartDate()) + "|" + project.parseDate(project.getEndDate()) + "|";
 			for (Task task : project.getListTasks()) {
@@ -193,7 +193,7 @@ public class ProjectManagement {
 		String description = sc.nextLine();
 		// Handle error if user enter an empty string (or string that only contains
 		// space)
-		while (name.trim().isEmpty()) {
+		while (description.trim().isEmpty()) {
 			System.out.println("Invalid input!!! Description cannot be an empty/all space string!!!");
 			System.out.print("Please enter project's description: ");
 			description = sc.nextLine();
@@ -205,7 +205,7 @@ public class ProjectManagement {
 		String category = sc.nextLine();
 		// Handle error if user enter an empty string (or string that only contains
 		// space)
-		while (name.trim().isEmpty()) {
+		while (category.trim().isEmpty()) {
 			System.out.println("Invalid input!!! Category cannot be an empty/all space string!!!");
 			System.out.print("Please enter project's category: ");
 			category = sc.nextLine();
@@ -257,7 +257,7 @@ public class ProjectManagement {
 		// Ask for each task's information
 		for (int i = 1; i <= numberOfTask; i++) {
 			// print header
-			System.out.println("-".repeat(10));
+			System.out.println(repeat("-", 10));
 			System.out.println("Task " + i);
 
 			// Ask for task's ID
@@ -361,12 +361,7 @@ public class ProjectManagement {
 			// Handle each case
 			if (option.equals("N")) {
 				// create normal task
-				Task task = new Task();
-				task.setID(taskID);
-				task.setName(taskName);
-				task.setDescription(taskDescription);
-				task.setStartDate(parseToDate(taskStartDate));
-				task.setEndDate(parseToDate(taskEndDate));
+				Task task = new Task(taskID, taskName, taskDescription, parseToDate(taskStartDate), parseToDate(taskEndDate), false);
 				// add task into project's listTasks
 				project.addTask(task);
 				// write to task file
@@ -382,14 +377,8 @@ public class ProjectManagement {
 					cost = sc.nextDouble();
 				}
 				// Create budget task
-				BudgetTask budgetTask = new BudgetTask();
-				budgetTask.setID(taskID);
-				budgetTask.setName(taskName);
-				budgetTask.setDescription(taskDescription);
-				budgetTask.setStartDate(parseToDate(taskStartDate));
-				budgetTask.setEndDate(parseToDate(taskEndDate));
-				budgetTask.setMoney(cost);
-				// add budget task into project's listTasks
+				BudgetTask budgetTask = new BudgetTask(taskID, taskName, taskDescription, parseToDate(taskStartDate), parseToDate(taskEndDate), false, cost);
+				// add task to project's listTasks
 				project.addTask(budgetTask);
 				// write to task file
 				writeTask(budgetTask);
@@ -404,6 +393,10 @@ public class ProjectManagement {
 
 		// Print message to user
 		System.out.println(">>> Project has created and added to database successfully!");
+	}
+
+	public void updateProject () {
+		System.out.println("Thuan Phan test commit");
 	}
 
 	/* Public methods end */
