@@ -1,28 +1,41 @@
+package user;
+
+//Import java standard library
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-// WELCOME PAGE -> return userName 
+//Import user's custom package
+
 public class User {
-    Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
     private String userName, userPass;
+    
+    // Get userName
+    public String getUserName() {
+        return userName;
+    }
 
-    public void userWelcome() {
+    //Print menu for user to sign in/create account/exit
+    public boolean userWelcome() {
+        //-> Replace this code later with menu from package menu.Menu
         System.out.println("            PROJECT MANAGEMENT SYSTEM");
         System.out.println("               ## WELCOME PAGE ##\n");
         System.out.println("    [1] Sign in");
-        System.out.println("    [2] Sign up (New here)\n");
-
+        System.out.println("    [2] Sign up (New here)");
+        System.out.println("    [3] Exit\n");
+        
         // Get option from user
         int option;
         while (true) {
             try {
-                System.out.print("Enter your option [1, 2]: ");
+                System.out.print("Enter your option [1, 3]: ");
                 option = sc.nextInt();
-                if (option < 1 || option > 2)
-                    System.out.println("*Error: option must be in range [1, 2]!\n");
+                if (option < 1 || option > 3)
+                    System.out.println("*Error: option must be in range [1, 3]!\n");
                 else {
                     sc.nextLine();
                     break;
@@ -33,17 +46,30 @@ public class User {
             }
         }
 
-        Main.clearConsole();
+        //A boolean to check if user want to exit or not
+        boolean exit = true;
+        
         switch (option) {
-            case 1:
+            case 1: {
                 this.userName = userSignIn();
+                exit = false;
                 break;
-            case 2:
+            }
+            case 2: {
                 this.userName = userSignUp();
+                exit = false;
                 break;
+            } 
+            case 3: {
+                System.out.println("Thanks for using our service!");
+                exit = true;
+                break;
+            }
         }
+        
+        return exit;
     }
-
+    
     // Sign in
     private String userSignIn() {
         System.out.println("            PROJECT MANAGEMENT PROJECT");
@@ -60,7 +86,7 @@ public class User {
                 else
                     break;
             }
-
+            
             // Get userPass
             while (true) {
                 System.out.print("Enter password: ");
@@ -73,12 +99,12 @@ public class User {
                             "*Error: password must have at least 5 characters and no whitespace!\n");
                 }
             }
-
+            
             // Check userName && userPass correct
             boolean check = false;
 
             try {
-                File file = new File("../data/accounts/users.txt");
+                File file = new File("data/users.txt");
                 Scanner fileRead = new Scanner(file);
                 int line = 1;
                 while (fileRead.hasNextLine()) {
@@ -100,7 +126,7 @@ public class User {
             } catch (FileNotFoundException fnfe) {
                 System.out.println("*Error: no file data for checking!\n");
             }
-
+            
             if (!check) {
                 System.out.println("*Error: username or password go wrong!\n");
             } else {
@@ -108,8 +134,8 @@ public class User {
             }
         }
     }
-
-    // Sign Up
+    
+    //Sign up
     private String userSignUp() {
         System.out.println("            PROJECT MANAGEMENT SYSTEM");
         System.out.println("               ## SIGN-UP PAGE ##\n");
@@ -125,7 +151,7 @@ public class User {
                 // Check userName existed in data
                 boolean check = true;
                 try {
-                    File file = new File("../data/accounts/users.txt");
+                    File file = new File("data/users.txt");
                     Scanner fileRead = new Scanner(file);
                     int line = 1;
                     while (fileRead.hasNextLine()) {
@@ -166,7 +192,7 @@ public class User {
         // Add user to File
         while (true) {
             try {
-                FileWriter users = new FileWriter("../data/accounts/users.txt", true);
+                FileWriter users = new FileWriter("data/users.txt", true);
                 users.write(userName + '\n');
                 users.write(userPass + '\n');
                 users.close();
@@ -179,7 +205,7 @@ public class User {
             }
         }
     }
-
+    
     // MD5 hash String
     private String md5Hash(String text) {
         try {
@@ -187,13 +213,8 @@ public class User {
             byte[] messageDigest = md.digest(text.getBytes());
             BigInteger textHash = new BigInteger(1, messageDigest);
             return textHash.toString(16);
-        } catch (Exception e) {
+        } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    // Get userName
-    public String getUserName() {
-        return userName;
     }
 }
