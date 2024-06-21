@@ -1,4 +1,4 @@
-package pro192;
+package main;
 
 //Import Java standard library
 import java.util.Scanner;
