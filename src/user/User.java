@@ -9,6 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 //Import user's custom package
+import menu.Menu;
 
 public class User {
     private final Scanner sc = new Scanner(System.in);
@@ -21,21 +22,20 @@ public class User {
 
     //Print menu for user to sign in/create account/exit
     public boolean userWelcome() {
-        //-> Replace this code later with menu from package menu.Menu
-        System.out.println("            PROJECT MANAGEMENT SYSTEM");
-        System.out.println("               ## WELCOME PAGE ##\n");
-        System.out.println("    [1] Sign in");
-        System.out.println("    [2] Sign up (New here)");
-        System.out.println("    [3] Exit\n");
+        Menu welcomeMenu = new Menu();
+        welcomeMenu.addOption("Sign in");
+        welcomeMenu.addOption("Sign up (New here)");
+        welcomeMenu.addOption("Exit");
+        welcomeMenu.display("WELCOME PAGE");
         
         // Get option from user
         int option;
         while (true) {
             try {
-                System.out.print("Enter your option [1, 3]: ");
+                System.out.printf("Enter your option [1, %d]: ", welcomeMenu.getMenuSize());
                 option = sc.nextInt();
-                if (option < 1 || option > 3)
-                    System.out.println("*Error: option must be in range [1, 3]!\n");
+                if (option < 1 || option > welcomeMenu.getMenuSize())
+                    System.out.printf("*Error: option must be in range [1, %d]!\n", welcomeMenu.getMenuSize());
                 else {
                     sc.nextLine();
                     break;
@@ -72,8 +72,8 @@ public class User {
     
     // Sign in
     private String userSignIn() {
-        System.out.println("            PROJECT MANAGEMENT PROJECT");
-        System.out.println("                ## SIGN-IN PAGE ##\n");
+        Menu signInMenu = new Menu();
+        signInMenu.display("SIGN-IN PAGE");
 
         while (true) {
             // Get userName
@@ -137,8 +137,8 @@ public class User {
     
     //Sign up
     private String userSignUp() {
-        System.out.println("            PROJECT MANAGEMENT SYSTEM");
-        System.out.println("               ## SIGN-UP PAGE ##\n");
+        Menu signUpMenu = new Menu();
+        signUpMenu.display("SIGN-UP PAGE");
 
         // Get userName
         while (true) {

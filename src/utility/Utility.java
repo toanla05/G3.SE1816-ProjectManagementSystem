@@ -44,20 +44,17 @@ public class Utility {
     }
     
     //Static method for parsing a String to Date (including exception handling)
-    public static Date parseToDate(String date) {
+    public static Date parseToDate(String date) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         formatter.setLenient(false);
-        try {
-            return formatter.parse(date);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        return formatter.parse(date);
+    
     }
     
-    //Static method for searching a task by ID
-    public static Task searchTaskByID(ArrayList<Task> listTasks, String ID) {
-        for (Task task : listTasks) {
-            if (task.getID().equals(ID)) {
+    //Static method for searching a task by name
+    public static Task searchTaskByName(ArrayList<Task> listTask, String taskName) {
+        for (Task task : listTask) {
+            if (task.getName().equalsIgnoreCase(taskName)) {
                 return task;
             }
         }
@@ -95,12 +92,19 @@ public class Utility {
             taskDatas = scannerTask.nextLine().split("\\|");
             
             //Create task or budget task based on the array length
-            if (taskDatas.length == 6) {
-                task = new Task(taskDatas[0], taskDatas[1], taskDatas[2], parseToDate(taskDatas[3]), parseToDate(taskDatas[4]), taskDatas[5].equals("true"));
-            } else {
-                task = new BudgetTask(taskDatas[0], taskDatas[1], taskDatas[2], parseToDate(taskDatas[3]), parseToDate(taskDatas[4]), 
-                                      taskDatas[5].equals("true"), Double.parseDouble(taskDatas[6]));
-            }
+            try {
+                if (taskDatas.length == 5) {
+                    task = new Task(taskDatas[0], taskDatas[1], parseToDate(taskDatas[2]), parseToDate(taskDatas[3]), 
+                                    taskDatas[4].equals("true"));
+                } else {
+                    task = new BudgetTask(taskDatas[0], taskDatas[1], parseToDate(taskDatas[2]), parseToDate(taskDatas[3]), 
+                                        taskDatas[4].equals("true"), Double.parseDouble(taskDatas[5]));
+                }
+            } catch (ParseException e) {
+                System.out.println("Error reading tasks.txt!");
+                scannerTask.close();
+                throw new RuntimeException(e);
+            } 
             
             //Add task to the list task
             listTasks.add(task);
@@ -136,13 +140,18 @@ public class Utility {
             projectDatas = scannerProject.nextLine().split("\\|");
             
             //Create project's meta data
-            project = new Project(projectDatas[1], projectDatas[2], projectDatas[3], projectDatas[4], parseToDate(projectDatas[5]), parseToDate(projectDatas[6]), new ArrayList<>());
-            project.setOwner(projectDatas[0]);
-
+            try {
+                project = new Project(projectDatas[1], projectDatas[2], projectDatas[3], parseToDate(projectDatas[4]), parseToDate(projectDatas[5]), new ArrayList<>());
+                project.setOwner(projectDatas[0]);
+            } catch (ParseException e) {
+                System.out.println("Error reading projects.txt");
+                scannerProject.close();
+                throw new RuntimeException(e);
+            }
             
             //Add tasks to project
             for (int i = 7; i < projectDatas.length; i++) {
-                task = searchTaskByID(listTasks, projectDatas[i]);
+                task = searchTaskByName(listTasks, projectDatas[i]);
                 if (task != null) {
                     project.addTask(task);
                 }
@@ -173,12 +182,12 @@ public class Utility {
             /*If project != null, then write the data into projects.txt based on mode (append or overwrite)*/
             
             //Add project's meta data to result string
-            String result = String.format("%s|%s|%s|%s|%s|%s|%s|", project.getOwner(), project.getID(), project.getName(), project.getDescription(), 
+            String result = String.format("%s|%s|%s|%s|%s|%s|", project.getOwner(), project.getName(), project.getDescription(), 
                                                                    project.getCategory(), parseDate(project.getStartDate()), parseDate(project.getEndDate()));
             
             //Add project's task into result string
             for (Task task : project.getListTasks()) {
-                result = result.concat(String.format("%s|", task.getID()));
+                result = result.concat(String.format("%s|", task.getName()));
             }
             
             result = result.concat("\n");
@@ -208,8 +217,8 @@ public class Utility {
             /*If task != null, then write the data into projects.txt based on mode (append or overwrite)*/
             
             //Add task's meta data to result string
-            String result = String.format("%s|%s|%s|%s|%s|%s|", task.getID(), task.getName(), task.getDescription(), 
-                                                                parseDate(task.getStartDate()), parseDate(task.getEndDate()), task.getIsComplete());
+            String result = String.format("%s|%s|%s|%s|%s|", task.getName(), task.getDescription(), parseDate(task.getStartDate()), 
+                                                                    parseDate(task.getEndDate()), task.getIsComplete());
             
             //If task is a budget task, add cost to result string
             if (task instanceof BudgetTask) {

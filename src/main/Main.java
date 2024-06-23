@@ -6,6 +6,7 @@ import java.util.Scanner;
 //Import user's custome package
 import user.User;
 import project.ProjectManagement;
+import menu.Menu;
 
 public class Main {
     public static void main(String[] args) {
@@ -33,17 +34,20 @@ public class Main {
             
             //Get user's option 
             do {
-                // Menu -> Replace this code later with menu object
-                System.out.println("            PROJECT MANAGEMENT SYSTEM");
-                System.out.println("               ## MENU PAGE ##\n");
-                System.out.println("Welcome, " + userName + "!\n");
-                System.out.println("  [1] Add project\n  [2] Update project\n  [3] Remove project\n  [4] Show project\n  [5] Log out");
+                // Menu
+                Menu mainMenu = new Menu();
+                mainMenu.addOption("Add project");
+                mainMenu.addOption("Show project");
+                mainMenu.addOption("Update project");
+                mainMenu.addOption("Delete project");
+                mainMenu.addOption("Log out");
+                mainMenu.display("MAIN MENU", userName);
 
                 //Ask for user's option and check validity
                 do {
                     try {
                         System.out.print("Please choose one option: ");
-                        option = Integer.parseInt(sc.next());
+                        option = Integer.parseInt(sc.nextLine());
                     } catch (NumberFormatException e) {
                         System.out.println("You must enter a numeric value for option!!!");
                         isValid = false;
@@ -51,7 +55,7 @@ public class Main {
                     }
 
                     //Check if option is in the range
-                    isValid = 1 <= option && option <= 5;
+                    isValid = 1 <= option && option <= mainMenu.getMenuSize();
 
                     //Print error message
                     if (!isValid) {
@@ -85,5 +89,7 @@ public class Main {
                 }
             } while (isRunning);
         } while (!isExit);
+
+        sc.close();
     }
 }
