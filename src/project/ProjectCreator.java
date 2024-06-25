@@ -62,7 +62,7 @@ public class ProjectCreator {
             }
 
             //Check if number of tasks is valid
-            isValid = numberOfTasks > 0;
+            isValid = numberOfTasks >= 0;
             if (!isValid) {
                 System.out.println("The number of tasks cannot be a negative integer!!!");
             }

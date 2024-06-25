@@ -13,6 +13,7 @@ import java.io.FileWriter;
 
 //Import user's custom package
 import project.*;
+import user.User;
 
 public class Utility {
     //Static method for clearing terminal 
@@ -118,7 +119,7 @@ public class Utility {
     }
     
     //Static method for reading data from projects.txt file
-    public static ArrayList<Project> readProjects() {
+    public static ArrayList<Project> readProjects(User user) {
         /*Variable declaration*/
         ArrayList<Project> listProjects = new ArrayList<>();
         ArrayList<Task> listTasks = readTasks();
@@ -139,6 +140,11 @@ public class Utility {
             //Split the line read from projects.txt into an array of String
             projectDatas = scannerProject.nextLine().split("\\|");
             
+            //Check if project belong to that user
+            if (user.getUserName() != projectDatas[0]) {
+                continue;
+            }
+
             //Create project's meta data
             try {
                 project = new Project(projectDatas[1], projectDatas[2], projectDatas[3], parseToDate(projectDatas[4]), parseToDate(projectDatas[5]), new ArrayList<>());

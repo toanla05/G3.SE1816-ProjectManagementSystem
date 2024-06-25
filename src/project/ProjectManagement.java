@@ -13,7 +13,7 @@ public class ProjectManagement {
 
     //Default constructor
     public ProjectManagement(User user) {
-        ArrayList<Project> listProjects = new ArrayList<>(Utility.readProjects());
+        ArrayList<Project> listProjects = new ArrayList<>(Utility.readProjects(user));
         this.projectCreator = new ProjectCreator(listProjects, user);
     }
 
