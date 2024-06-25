@@ -291,6 +291,20 @@ public class ProjectCreator {
             project.setEndDate(endDate);
         } while (!isValid);
 
+        //Get project's initial budget
+        double initialBudget;
+        do {
+            try {
+                System.out.print("Please enter project's initial budget: ");
+                initialBudget = Double.parseDouble(sc.nextLine());
+                project.setInitialBudget(initialBudget);
+                isValid = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Project's initial budget must be a non-negative number!");
+                isValid = false;
+            }
+        } while (!isValid);
+
         //Get project's tasks
         addNewTask(project);
 

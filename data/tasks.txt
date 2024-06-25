@@ -1,3 +1,1 @@
-Budget task 1|budget task 1|30/06/2024|07/07/2024|false|234000.0|
-Task 1|task 1|08/10/2024|10/11/2024|false|
-Budget task 1|task 1|20/11/2024|11/12/2024|false|186000.0|
+Budget task 1|budget task 1|10/10/2024|11/11/2024|false|234000.0|

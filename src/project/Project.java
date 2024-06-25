@@ -15,6 +15,7 @@ public class Project {
     private String category;
     private Date startDate;
     private Date endDate;
+    private double initialBudget;
     private final ArrayList<Task> listTasks;
 
     //Default constructor
@@ -24,16 +25,18 @@ public class Project {
         this.category = "";
         this.startDate = new Date();
         this.endDate = new Date();
+        this.initialBudget = 0.0;
         this.listTasks = new ArrayList<>();
     }
 
     //Parametric constructor
-    public Project(String name, String description, String category, Date startDate, Date endDate, ArrayList<Task> listTasks) {
+    public Project(String name, String description, String category, Date startDate, Date endDate, double initialBudget, ArrayList<Task> listTasks) {
         this.name = name;
         this.description = description;
         this.category = category;
         this.startDate = new Date(startDate.getTime());
         this.endDate = new Date(endDate.getTime());
+        this.initialBudget = initialBudget;
         this.listTasks = new ArrayList<>(listTasks);
     }
 
@@ -60,6 +63,10 @@ public class Project {
 
     public Date getEndDate() {
         return this.endDate;
+    }
+
+    public double getInitialBudget() {
+        return this.initialBudget;
     }
 
     public ArrayList<Task> getListTasks() {
@@ -115,6 +122,14 @@ public class Project {
         this.endDate = new Date(endDate.getTime());
     }
 
+    public void setInitialBudget(double initialBudget) throws IllegalArgumentException {
+        if (initialBudget < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        this.initialBudget = initialBudget;
+    }
+
     /*Private methods (helper methods)*/
 
     /*Public methods*/
@@ -147,6 +162,16 @@ public class Project {
         return (count * 100) / listTasks.size();
     }
 
+    public double calculateTotalCost() {
+        double total = 0.0;
+        for (Task task : listTasks) {
+            if (task instanceof BudgetTask) {
+                total += ((BudgetTask)task).getMoney();
+            }
+        }
+        return total;
+    }
+
     public void displayProject(int index) {
         System.out.println(Utility.repeat("-", 20));
         System.out.printf("Project %d: %.2f%%\n", index, calculateProgress());
@@ -155,6 +180,7 @@ public class Project {
         System.out.printf(">>> Category: %s\n", category);
         System.out.printf(">>> Start date: %s\n", Utility.parseDate(startDate));
         System.out.printf(">>> End date: %s\n", Utility.parseDate(endDate));
+        System.out.printf("Initial budget: %.2f\n", initialBudget);
         System.out.printf("+%s+%s+%s+%s+%s+%s+\n", Utility.repeat("-", 32), Utility.repeat("-", 52), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12));
         System.out.printf("| %-30s | %-50s | %10s | %10s | %10s | %10s |\n", "Name", "Description", "Start date", "End date", "Complete?", "Budget");
         System.out.printf("+%s+%s+%s+%s+%s+%s+\n", Utility.repeat("-", 32), Utility.repeat("-", 52), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12));

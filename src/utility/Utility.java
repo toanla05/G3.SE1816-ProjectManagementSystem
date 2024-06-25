@@ -147,7 +147,9 @@ public class Utility {
 
             //Create project's meta data
             try {
-                project = new Project(projectDatas[1], projectDatas[2], projectDatas[3], parseToDate(projectDatas[4]), parseToDate(projectDatas[5]), new ArrayList<>());
+                project = new Project(projectDatas[1], projectDatas[2], projectDatas[3], 
+                                      parseToDate(projectDatas[4]), parseToDate(projectDatas[5]), 
+                                      Double.parseDouble(projectDatas[6]), new ArrayList<>());
                 project.setOwner(projectDatas[0]);
             } catch (ParseException e) {
                 System.out.println("Error reading projects.txt");
@@ -188,8 +190,10 @@ public class Utility {
             /*If project != null, then write the data into projects.txt based on mode (append or overwrite)*/
             
             //Add project's meta data to result string
-            String result = String.format("%s|%s|%s|%s|%s|%s|", project.getOwner(), project.getName(), project.getDescription(), 
-                                                                   project.getCategory(), parseDate(project.getStartDate()), parseDate(project.getEndDate()));
+            String result = String.format("%s|%s|%s|%s|%s|%s|%s|", project.getOwner(), project.getName(), 
+                                                                          project.getDescription(), project.getCategory(), 
+                                                                          parseDate(project.getStartDate()), parseDate(project.getEndDate()), 
+                                                                          Double.toString(project.getInitialBudget()));
             
             //Add project's task into result string
             for (Task task : project.getListTasks()) {
