@@ -17,8 +17,8 @@ public class BudgetTask extends Task {
     }
 
     //Parametric constructor
-    public BudgetTask(String name, String description, Date startDate, Date endDate, boolean isComplete, double money) {
-        super(name, description, startDate, endDate, isComplete);
+    public BudgetTask(String ID, String name, String description, Date startDate, Date endDate, boolean isComplete, double money) {
+        super(ID, name, description, startDate, endDate, isComplete);
         this.money = money;
     }
 
@@ -28,6 +28,15 @@ public class BudgetTask extends Task {
     }
 
     /*Setter methods*/
+    @Override
+    public void setID(String ID) throws IllegalArgumentException {
+        if (!ID.matches("BT\\d{3}")) {
+            throw new IllegalArgumentException();
+        }
+
+        this.ID = ID;
+    }
+
     public void setMoney(double money) throws IllegalArgumentException {
         if (money <= 0) {
             throw new IllegalArgumentException();
@@ -38,9 +47,9 @@ public class BudgetTask extends Task {
     /*public methods*/
     @Override
     public void displayTask() {
-        String format = "| %-30s | %-50s | %10s | %10s | %10s | %10s |\n";
-        System.out.printf(format, name, description, parseDate(startDate), parseDate(endDate), isComplete, money);
-        System.out.printf("+%s+%s+%s+%s+%s+%s+\n", Utility.repeat("-", 32), Utility.repeat("-", 52), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12));
+        String format = "| %-5s | %-30s | %-50s | %10s | %10s | %10s | %10s |\n";
+        System.out.printf(format, ID, name, description, parseDate(startDate), parseDate(endDate), isComplete, money);
+        System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", Utility.repeat("-", 7), Utility.repeat("-", 32), Utility.repeat("-", 52), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12));
     }
 
 }

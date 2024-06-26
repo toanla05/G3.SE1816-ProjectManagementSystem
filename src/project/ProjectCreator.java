@@ -95,6 +95,25 @@ public class ProjectCreator {
                 task = new Task();
             }
 
+            //Generate task's ID
+            String ID = "";
+            int numberOfBudgetTask = 0;
+            for (Task ts : Utility.readTasks()) {
+                if (ts instanceof BudgetTask) {
+                    numberOfBudgetTask++;
+                }
+            }
+
+            if (task instanceof BudgetTask) {
+                ID += String.format("BT%03d", numberOfBudgetTask + 1);
+            } else {
+                ID += String.format("NT%03d", Utility.readTasks().size() - numberOfBudgetTask + 1);
+            }
+            try {
+                task.setID(ID);    
+            } catch (IllegalArgumentException e) {}
+            
+
             //Ask for task's name
             do {
                 try {
@@ -209,6 +228,9 @@ public class ProjectCreator {
 
         //Set project's owner to the current user
         project.setOwner(user.getUserName());
+
+        //Generate project's ID
+        project.setID(String.format("P%04d", Utility.readProjects().size() + 1));
 
         //Ask for project's name
         do {

@@ -13,7 +13,6 @@ import java.io.FileWriter;
 
 //Import user's custom package
 import project.*;
-import user.User;
 
 public class Utility {
     //Static method for clearing terminal 
@@ -53,9 +52,9 @@ public class Utility {
     }
     
     //Static method for searching a task by name
-    public static Task searchTaskByName(ArrayList<Task> listTask, String taskName) {
+    public static Task searchTaskByID(ArrayList<Task> listTask, String ID) {
         for (Task task : listTask) {
-            if (task.getName().equalsIgnoreCase(taskName)) {
+            if (task.getID().equalsIgnoreCase(ID)) {
                 return task;
             }
         }
@@ -95,11 +94,11 @@ public class Utility {
             //Create task or budget task based on the array length
             try {
                 if (taskDatas.length == 5) {
-                    task = new Task(taskDatas[0], taskDatas[1], parseToDate(taskDatas[2]), parseToDate(taskDatas[3]), 
-                                    taskDatas[4].equals("true"));
+                    task = new Task(taskDatas[0], taskDatas[1], taskDatas[2], parseToDate(taskDatas[3]), parseToDate(taskDatas[4]), 
+                                    taskDatas[5].equals("true"));
                 } else {
-                    task = new BudgetTask(taskDatas[0], taskDatas[1], parseToDate(taskDatas[2]), parseToDate(taskDatas[3]), 
-                                        taskDatas[4].equals("true"), Double.parseDouble(taskDatas[5]));
+                    task = new BudgetTask(taskDatas[0], taskDatas[1], taskDatas[2], parseToDate(taskDatas[3]), parseToDate(taskDatas[4]), 
+                                        taskDatas[5].equals("true"), Double.parseDouble(taskDatas[6]));
                 }
             } catch (ParseException e) {
                 System.out.println("Error reading tasks.txt!");
@@ -119,7 +118,7 @@ public class Utility {
     }
     
     //Static method for reading data from projects.txt file
-    public static ArrayList<Project> readProjects(User user) {
+    public static ArrayList<Project> readProjects() {
         /*Variable declaration*/
         ArrayList<Project> listProjects = new ArrayList<>();
         ArrayList<Task> listTasks = readTasks();
@@ -139,17 +138,12 @@ public class Utility {
         while (scannerProject.hasNextLine()) {
             //Split the line read from projects.txt into an array of String
             projectDatas = scannerProject.nextLine().split("\\|");
-            
-            //Check if project belong to that user
-            if (user.getUserName() != projectDatas[0]) {
-                continue;
-            }
 
             //Create project's meta data
             try {
-                project = new Project(projectDatas[1], projectDatas[2], projectDatas[3], 
-                                      parseToDate(projectDatas[4]), parseToDate(projectDatas[5]), 
-                                      Double.parseDouble(projectDatas[6]), new ArrayList<>());
+                project = new Project(projectDatas[1], projectDatas[2], projectDatas[3], projectDatas[4],
+                                      parseToDate(projectDatas[5]), parseToDate(projectDatas[6]), 
+                                      Double.parseDouble(projectDatas[7]), new ArrayList<>());
                 project.setOwner(projectDatas[0]);
             } catch (ParseException e) {
                 System.out.println("Error reading projects.txt");
@@ -158,8 +152,8 @@ public class Utility {
             }
             
             //Add tasks to project
-            for (int i = 7; i < projectDatas.length; i++) {
-                task = searchTaskByName(listTasks, projectDatas[i]);
+            for (int i = 8; i < projectDatas.length; i++) {
+                task = searchTaskByID(listTasks, projectDatas[i]);
                 if (task != null) {
                     project.addTask(task);
                 }
@@ -190,14 +184,14 @@ public class Utility {
             /*If project != null, then write the data into projects.txt based on mode (append or overwrite)*/
             
             //Add project's meta data to result string
-            String result = String.format("%s|%s|%s|%s|%s|%s|%s|", project.getOwner(), project.getName(), 
+            String result = String.format("%s|%s|%s|%s|%s|%s|%s|%s|", project.getOwner(), project.getID(), project.getName(), 
                                                                           project.getDescription(), project.getCategory(), 
                                                                           parseDate(project.getStartDate()), parseDate(project.getEndDate()), 
                                                                           Double.toString(project.getInitialBudget()));
             
             //Add project's task into result string
             for (Task task : project.getListTasks()) {
-                result = result.concat(String.format("%s|", task.getName()));
+                result = result.concat(String.format("%s|", task.getID()));
             }
             
             result = result.concat("\n");
@@ -227,8 +221,9 @@ public class Utility {
             /*If task != null, then write the data into projects.txt based on mode (append or overwrite)*/
             
             //Add task's meta data to result string
-            String result = String.format("%s|%s|%s|%s|%s|", task.getName(), task.getDescription(), parseDate(task.getStartDate()), 
-                                                                    parseDate(task.getEndDate()), task.getIsComplete());
+            String result = String.format("%s|%s|%s|%s|%s|%s|", task.getID(), task.getName(), task.getDescription(), 
+                                                                       parseDate(task.getStartDate()), parseDate(task.getEndDate()), 
+                                                                       task.getIsComplete());
             
             //If task is a budget task, add cost to result string
             if (task instanceof BudgetTask) {

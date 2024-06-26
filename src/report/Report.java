@@ -110,7 +110,7 @@ public class Report {
         boolean isValid;
         String option;
         do {
-            System.out.print("Do you want to export the report into a file (Y/N)?");
+            System.out.print("Do you want to export the report into a file (Y/N)? ");
             option = sc.nextLine().trim();
             
             //Check for option validity

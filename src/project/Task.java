@@ -6,6 +6,7 @@ import utility.Utility;
 
 public class Task {
     //Class attribute
+    protected String ID;
     protected String name;
     protected String description;
     protected Date startDate;
@@ -14,6 +15,7 @@ public class Task {
 
     //Default constructor
     public Task() {
+        this.ID = "";
         this.name = "";
         this.description = "";
         this.startDate = new Date();
@@ -22,7 +24,8 @@ public class Task {
     }
 
     //Parametric constructor
-    public Task (String name, String description, Date startDate, Date endDate, boolean isComplete) {
+    public Task (String ID, String name, String description, Date startDate, Date endDate, boolean isComplete) {
+        this.ID = ID;
         this.name = name;
         this.description = description;
         this.startDate = new Date(startDate.getTime());
@@ -31,6 +34,10 @@ public class Task {
     }
 
     /*Getter methods*/
+    public String getID() {
+        return this.ID;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -52,6 +59,14 @@ public class Task {
     }
 
     /*Setter methods*/
+    public void setID(String ID) throws IllegalArgumentException {
+        if (!ID.matches("NT\\d{3}")) {
+            throw new IllegalArgumentException();
+        }
+
+        this.ID = ID;
+    }
+
     public void setName(String name) throws IllegalArgumentException {
         if (name.trim().isEmpty()) {
             throw new IllegalArgumentException();
@@ -109,8 +124,8 @@ public class Task {
 
     //method for display task in tabular format
     public void displayTask() {
-        String format = "| %-30s | %-50s | %10s | %10s | %10s | %10s |\n";
-        System.out.printf(format, name, description, parseDate(startDate), parseDate(endDate), isComplete, "_");
-        System.out.printf("+%s+%s+%s+%s+%s+%s+\n", Utility.repeat("-", 32), Utility.repeat("-", 52), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12));
+        String format = "| %-5s | %-30s | %-50s | %10s | %10s | %10s | %10s |\n";
+        System.out.printf(format, ID, name, description, parseDate(startDate), parseDate(endDate), isComplete, "_");
+        System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", Utility.repeat("-", 7), Utility.repeat("-", 32), Utility.repeat("-", 52), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12));
     }
 }

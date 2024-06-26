@@ -10,13 +10,17 @@ import utility.Utility;
 
 public class ProjectManagement {
     //Class attribute
-    private final ArrayList<Project> listProjects;
+    private final ArrayList<Project> listProjects = new ArrayList<>();
     private final ProjectCreator projectCreator;
     private final Report report;
 
     //Default constructor
     public ProjectManagement(User user) {
-        this.listProjects = new ArrayList<>(Utility.readProjects(user));
+        for (Project project : Utility.readProjects()) {
+            if (project.getOwner().equals(user.getUserName())) {
+                this.listProjects.add(project);
+            }
+        }
         this.projectCreator = new ProjectCreator(listProjects, user);
         this.report = new Report(listProjects, user);
     }

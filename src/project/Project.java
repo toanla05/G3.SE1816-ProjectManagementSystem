@@ -10,6 +10,7 @@ import utility.Utility;
 public class Project {
     //Class attribute
     private String owner;
+    private String ID;
     private String name;
     private String description;
     private String category;
@@ -20,6 +21,7 @@ public class Project {
 
     //Default constructor
     public Project() {
+        this.ID = "";
         this.name = "";
         this.description = "";
         this.category = "";
@@ -30,7 +32,8 @@ public class Project {
     }
 
     //Parametric constructor
-    public Project(String name, String description, String category, Date startDate, Date endDate, double initialBudget, ArrayList<Task> listTasks) {
+    public Project(String ID, String name, String description, String category, Date startDate, Date endDate, double initialBudget, ArrayList<Task> listTasks) {
+        this.ID = ID;
         this.name = name;
         this.description = description;
         this.category = category;
@@ -43,6 +46,10 @@ public class Project {
     /*Getter methods*/
     public String getOwner() {
         return this.owner;
+    }
+
+    public String getID() {
+        return this.ID;
     }
 
     public String getName() {
@@ -76,6 +83,14 @@ public class Project {
     /*Setter methods*/        
     public void setOwner(String username) {
         this.owner = username;
+    }
+
+    public void setID(String ID) throws IllegalArgumentException {
+        if (!ID.matches("P\\d{4}")) {
+            throw new IllegalArgumentException();
+        }
+
+        this.ID = ID;
     }
 
     public void setName(String name) throws IllegalArgumentException {
@@ -175,15 +190,16 @@ public class Project {
     public void displayProject(int index) {
         System.out.println(Utility.repeat("-", 20));
         System.out.printf("Project %d: %.2f%%\n", index, calculateProgress());
+        System.out.printf(">>> Project's IDL %s\n", ID);
         System.out.printf(">>> Name: %s\n", name);
         System.out.printf(">>> Description: %s\n", description);
         System.out.printf(">>> Category: %s\n", category);
         System.out.printf(">>> Start date: %s\n", Utility.parseDate(startDate));
         System.out.printf(">>> End date: %s\n", Utility.parseDate(endDate));
         System.out.printf("Initial budget: %.2f\n", initialBudget);
-        System.out.printf("+%s+%s+%s+%s+%s+%s+\n", Utility.repeat("-", 32), Utility.repeat("-", 52), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12));
-        System.out.printf("| %-30s | %-50s | %10s | %10s | %10s | %10s |\n", "Name", "Description", "Start date", "End date", "Complete?", "Budget");
-        System.out.printf("+%s+%s+%s+%s+%s+%s+\n", Utility.repeat("-", 32), Utility.repeat("-", 52), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12));
+        System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", Utility.repeat("-", 7), Utility.repeat("-", 32), Utility.repeat("-", 52), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12));
+        System.out.printf("| %-5s | %-30s | %-50s | %10s | %10s | %10s | %10s |\n", "ID", "Name", "Description", "Start date", "End date", "Complete?", "Budget");
+        System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", Utility.repeat("-", 7), Utility.repeat("-", 32), Utility.repeat("-", 52), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12));
         for (Task task : listTasks) {
             task.displayTask();
         }

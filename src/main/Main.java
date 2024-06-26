@@ -83,9 +83,11 @@ public class Main {
                     }
                     case 4: {
                         System.out.println("Func 4");
+                        break;
                     }
                     case 5: {
                         manager.makeReport();
+                        break;
                     }
                     case 6: {
                         isRunning = false;
