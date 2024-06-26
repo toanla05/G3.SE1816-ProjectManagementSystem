@@ -40,6 +40,7 @@ public class Main {
                 mainMenu.addOption("Show project");
                 mainMenu.addOption("Update project");
                 mainMenu.addOption("Delete project");
+                mainMenu.addOption("Make report");
                 mainMenu.addOption("Log out");
                 mainMenu.display("MAIN MENU", userName);
 
@@ -72,7 +73,8 @@ public class Main {
                         break;
                     }
                     case 2: {
-                        System.out.println("Func 2");
+                        //System.out.println("Func 2");
+                        manager.showProject();
                         break;
                     }
                     case 3: {
@@ -83,6 +85,9 @@ public class Main {
                         System.out.println("Func 4");
                     }
                     case 5: {
+                        manager.makeReport();
+                    }
+                    case 6: {
                         isRunning = false;
                         break;
                     }

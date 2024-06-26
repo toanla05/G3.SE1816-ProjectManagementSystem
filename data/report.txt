@@ -1,0 +1,10 @@
+					REPORT
+Username: Dang
+----------GENERAL INFORMATION----------
+Number of projects: 0
+Number of completed projects: 0Number of uncompleted projects that is late: 0
+Number of project that does not go over budget: 0
+----------DETAIL INFORMATION----------
+* Project progress
+* Project deadline
+* Project total cost

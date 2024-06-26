@@ -3,18 +3,22 @@ package project;
 //Import Java standard library
 import java.util.ArrayList;
 
+import report.Report;
 //Import user's custom package
 import user.User;
 import utility.Utility;
 
 public class ProjectManagement {
     //Class attribute
+    private final ArrayList<Project> listProjects;
     private final ProjectCreator projectCreator;
+    private final Report report;
 
     //Default constructor
     public ProjectManagement(User user) {
-        ArrayList<Project> listProjects = new ArrayList<>(Utility.readProjects(user));
+        this.listProjects = new ArrayList<>(Utility.readProjects(user));
         this.projectCreator = new ProjectCreator(listProjects, user);
+        this.report = new Report(listProjects, user);
     }
 
     /*public methods*/
@@ -25,6 +29,10 @@ public class ProjectManagement {
     public void showProject() {
         //Thuan's code will go here
         System.out.println("Thuan's code will go here");
+        //ArrayList<Project> listProjects = new ArrayList<>(Utility.readProjects(user));
+        for (Project project : listProjects) {
+            project.displayProject(1);
+        }
     }
     
     public void updateProject() {
@@ -36,4 +44,9 @@ public class ProjectManagement {
         //Thanh's code will go here
         System.out.println("Thanh's code will go here");
     }
+
+    public void makeReport() {
+        report.createReport();
+    }
 }
+
