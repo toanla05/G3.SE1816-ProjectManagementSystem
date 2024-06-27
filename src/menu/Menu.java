@@ -25,7 +25,7 @@ public class Menu {
     public void display (String header) {
         int index = 1;
 
-        System.out.printf("\t\t\t\tPROJECT MANAGEMENT SYSTEM\n");
+        System.out.printf("\t\t\t\t----- PROJECT MANAGEMENT SYSTEM -----\n");
         System.out.printf("\t\t\t\t\t## %s ##\n", header);
         
         for (String option : menu) {

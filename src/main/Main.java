@@ -74,7 +74,7 @@ public class Main {
                     }
                     case 2: {
                         //System.out.println("Func 2");
-                        manager.showProject();
+                        manager.displayProject();
                         break;
                     }
                     case 3: {

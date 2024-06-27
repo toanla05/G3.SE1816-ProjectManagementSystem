@@ -32,6 +32,9 @@ public class Report {
         //Add header to result
         result += String.format("\t\t\t\t\t%s\n", "REPORT");
 
+        //Get current date for comparasion
+        Date currentDay = new Date();
+
         /*Add general information to result*/
         result += String.format("Username: %s\n", user.getUserName());
         result += String.format("%s%s%s\n", Utility.repeat("-", 10), "GENERAL INFORMATION", Utility.repeat("-", 10));
@@ -45,16 +48,6 @@ public class Report {
             }
         }
         result += String.format("Number of completed projects: %d\n", completedProject);
-
-        //Get the number of completed projects that does not meet the deadline 
-        int notCompletedProjectDueDate = 0;
-        Date currentDay = new Date();
-        for (Project project : listProjects) {
-            if (project.calculateProgress() < 100 && !currentDay.after(project.getEndDate())) {
-                notCompletedProjectDueDate++;
-            }
-        }
-        result += String.format("Number of uncompleted projects that is late: %d\n", notCompletedProjectDueDate);
 
         //Get the number of projects that does not go over the budget
         int projectNotOverBudget = 0;

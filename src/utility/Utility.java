@@ -15,7 +15,7 @@ import java.io.FileWriter;
 import project.*;
 
 public class Utility {
-    //Static method for clearing terminal 
+    //Static method for clearing terminal (not working with NetBeans IDE)
     public static void clearConsole() {
         try {
 
@@ -23,8 +23,7 @@ public class Utility {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             else
                 new ProcessBuilder("cmd", "/c", "clear").inheritIO().start().waitFor();
-        } catch (IOException | InterruptedException ex) {
-        }
+        } catch (IOException | InterruptedException ex) {}
     }
     
     //Static method for repeating a string
@@ -93,7 +92,7 @@ public class Utility {
             
             //Create task or budget task based on the array length
             try {
-                if (taskDatas.length == 5) {
+                if (taskDatas.length == 6) {
                     task = new Task(taskDatas[0], taskDatas[1], taskDatas[2], parseToDate(taskDatas[3]), parseToDate(taskDatas[4]), 
                                     taskDatas[5].equals("true"));
                 } else {

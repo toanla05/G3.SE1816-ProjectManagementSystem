@@ -190,13 +190,13 @@ public class Project {
     public void displayProject(int index) {
         System.out.println(Utility.repeat("-", 20));
         System.out.printf("Project %d: %.2f%%\n", index, calculateProgress());
-        System.out.printf(">>> Project's IDL %s\n", ID);
+        System.out.printf(">>> Project's ID: %s\n", ID);
         System.out.printf(">>> Name: %s\n", name);
         System.out.printf(">>> Description: %s\n", description);
         System.out.printf(">>> Category: %s\n", category);
         System.out.printf(">>> Start date: %s\n", Utility.parseDate(startDate));
         System.out.printf(">>> End date: %s\n", Utility.parseDate(endDate));
-        System.out.printf("Initial budget: %.2f\n", initialBudget);
+        System.out.printf(">>> Initial budget: %.2f\n", initialBudget);
         System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", Utility.repeat("-", 7), Utility.repeat("-", 32), Utility.repeat("-", 52), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12));
         System.out.printf("| %-5s | %-30s | %-50s | %10s | %10s | %10s | %10s |\n", "ID", "Name", "Description", "Start date", "End date", "Complete?", "Budget");
         System.out.printf("+%s+%s+%s+%s+%s+%s+%s+\n", Utility.repeat("-", 7), Utility.repeat("-", 32), Utility.repeat("-", 52), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12), Utility.repeat("-", 12));

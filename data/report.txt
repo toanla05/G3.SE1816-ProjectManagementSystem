@@ -1,14 +1,16 @@
 					REPORT
 Username: Dang
 ----------GENERAL INFORMATION----------
-Number of projects: 1
+Number of projects: 2
 Number of completed projects: 0
-Number of uncompleted projects that is late: 1
-Number of project that does not go over budget: 1
+Number of project that does not go over budget: 2
 ----------DETAIL INFORMATION----------
 * Project progress
 Project 1: 0.00%
+Project 2: 0.00%
 * Project deadline
-Project 1: 358 days before deadline
+Project 1: 357 days before deadline
+Project 2: 245 days before deadline
 * Project total cost
 Project 1: under budget
+Project 2: under budget
