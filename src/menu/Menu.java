@@ -46,4 +46,13 @@ public class Menu {
             index++;
         }
     }
+    
+        public void display () {
+        int index = 1;
+        
+        for (String option : menu) {
+            System.out.printf("[%d] %s.\n", index, option);
+            index++;
+        }        
+    }
 }

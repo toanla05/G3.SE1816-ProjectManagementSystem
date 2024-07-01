@@ -166,6 +166,25 @@ public class Project {
             index++;
         }
     }
+    
+    public void checkTask(String name) {
+        int index = 0;
+        for (Task task : listTasks) {
+            if (task.getName().equalsIgnoreCase(name)) {
+                this.listTasks.get(index).setIsComplete(true);
+                return;
+            }
+            index++;
+        }
+    }
+    
+    public void checkProject() {
+        int index = 0;
+        for (Task task : listTasks) {
+                this.listTasks.get(index).setIsComplete(true);
+            index++;
+        }
+    }
 
     public double calculateProgress() {
         double count = 0;
