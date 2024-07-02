@@ -190,7 +190,7 @@ public class ProjectEditing {
                         do {
                             isValid = true;
                             String YoN;
-                            System.out.print("Do you want to continue creating project (Y/N): ");
+                            System.out.print("Do you want to continue delete task (Y/N): ");
                             YoN = sc.nextLine().trim();
                             if (YoN.equalsIgnoreCase("Y")) {
                                 isContinue = true;
@@ -204,7 +204,6 @@ public class ProjectEditing {
                             }
                         } while (!isValid);
                     } while (isContinue);
-                    sc.nextLine();
                     break;
                 }
 
@@ -216,7 +215,7 @@ public class ProjectEditing {
                 Utility.writeFile(project, false, String.format("data/%s/projects.txt", user.getUserName()));
             } else {
                 for (Project project : listProjects) {
-                    Utility.writeFile(project, true, String.format("data/%s/projects.txt", user.getUserName()));
+                    Utility.writeFile(project, false, String.format("data/%s/projects.txt", user.getUserName()));
                 }
 
             }
