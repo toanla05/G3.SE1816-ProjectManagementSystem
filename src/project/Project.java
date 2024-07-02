@@ -167,21 +167,21 @@ public class Project {
         }
     }
     
-    public void checkTask(String name) {
+    public void checkTask(String name, boolean isCompleted) {
         int index = 0;
         for (Task task : listTasks) {
             if (task.getName().equalsIgnoreCase(name)) {
-                this.listTasks.get(index).setIsComplete(true);
+                this.listTasks.get(index).setIsComplete(isCompleted);
                 return;
             }
             index++;
         }
     }
     
-    public void checkProject() {
+    public void checkProject(boolean isCompleted) {
         int index = 0;
         for (Task task : listTasks) {
-                this.listTasks.get(index).setIsComplete(true);
+                this.listTasks.get(index).setIsComplete(isCompleted);
             index++;
         }
     }
