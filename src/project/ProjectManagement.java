@@ -13,6 +13,7 @@ public class ProjectManagement {
     private final ProjectCreator projectCreator;
     private final ProjectDisplayer projectDisplayer;
     private final Report report;
+    private final ProjectEditing projectEditing;
 
     //Default constructor
     public ProjectManagement(User user) {
@@ -23,6 +24,7 @@ public class ProjectManagement {
         this.projectCreator = new ProjectCreator(listProjects, user);
         this.projectDisplayer = new ProjectDisplayer(listProjects, user);
         this.report = new Report(listProjects, user);
+        this.projectEditing = new ProjectEditing(listProjects, user);
     }
 
     /*public methods*/
@@ -35,17 +37,15 @@ public class ProjectManagement {
     }
     
     public void editProject() {
-        //Thanh's code will go here
-        System.out.println("Thanh's code will go here");
+        projectEditing.updateProject();
     }
 
     public void updateProjectProgress() {
-        
+        projectEditing.updateProject();
     }
     
     public void deleteProject() {
-        //Thanh's code will go here
-        System.out.println("Thanh's code will go here");
+        projectEditing.deleteProject();
     }
 
     public void makeReport() {
