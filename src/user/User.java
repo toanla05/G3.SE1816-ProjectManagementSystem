@@ -48,7 +48,6 @@ public class User {
 
         //A boolean to check if user want to exit or not
         boolean exit = true;
-        
         switch (option) {
             case 1: {
                 this.userName = userSignIn();

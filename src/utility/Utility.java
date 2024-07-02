@@ -25,7 +25,7 @@ public class Utility {
                 new ProcessBuilder("cmd", "/c", "clear").inheritIO().start().waitFor();
         } catch (IOException | InterruptedException ex) {}
     }
-    
+        
     //Static method for repeating a string
     public static String repeat(String str, int times) {
         String result = "";
@@ -60,6 +60,13 @@ public class Utility {
         return null;
     }
     
+    //Static method for creating a directory
+    public static void createDir(String username) {
+        String dirPath = String.format("data/%s", username);
+        File dir = new File(dirPath);
+        dir.mkdir();
+    }
+
     //Static method for creating .txt file (If file exist, this method will NOT overwrite the existing files)
     public static void createFile(String filePath) {
         File file = new File(filePath);
@@ -71,7 +78,7 @@ public class Utility {
     }
     
     //Static method for reading data from tasks.txt
-    public static ArrayList<Task> readTasks() {
+    public static ArrayList<Task> readTasks(String username) {
         /*Variables declaration*/
         ArrayList<Task> listTasks = new ArrayList<>();
         String[] taskDatas;
@@ -80,7 +87,7 @@ public class Utility {
         
         //Try reading file tasks.txt
         try {
-            scannerTask = new Scanner(new File("data/tasks.txt"));
+            scannerTask = new Scanner(new File(String.format("data/%s/tasks.txt", username)));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -117,10 +124,10 @@ public class Utility {
     }
     
     //Static method for reading data from projects.txt file
-    public static ArrayList<Project> readProjects() {
+    public static ArrayList<Project> readProjects(String username) {
         /*Variable declaration*/
         ArrayList<Project> listProjects = new ArrayList<>();
-        ArrayList<Task> listTasks = readTasks();
+        ArrayList<Task> listTasks = readTasks(username);
         String[] projectDatas;
         Project project = null;
         Task task = null;
@@ -128,7 +135,7 @@ public class Utility {
         
         //Try reading from projects.txt
         try {
-            scannerProject = new Scanner(new File("data/projects.txt"));
+            scannerProject = new Scanner(new File(String.format("data/%s/projects.txt", username)));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

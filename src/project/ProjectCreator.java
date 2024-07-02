@@ -98,7 +98,7 @@ public class ProjectCreator {
             //Generate task's ID
             String ID = "";
             int numberOfBudgetTask = 0;
-            for (Task ts : Utility.readTasks()) {
+            for (Task ts : Utility.readTasks(user.getUserName())) {
                 if (ts instanceof BudgetTask) {
                     numberOfBudgetTask++;
                 }
@@ -107,7 +107,7 @@ public class ProjectCreator {
             if (task instanceof BudgetTask) {
                 ID += String.format("BT%03d", numberOfBudgetTask + 1);
             } else {
-                ID += String.format("NT%03d", Utility.readTasks().size() - numberOfBudgetTask + 1);
+                ID += String.format("NT%03d", Utility.readTasks(user.getUserName()).size() - numberOfBudgetTask + 1);
             }
             try {
                 task.setID(ID);    
@@ -212,7 +212,7 @@ public class ProjectCreator {
             }
 
             project.addTask(task);
-            Utility.writeFile(task, true, "data/tasks.txt");
+            Utility.writeFile(task, true, String.format("data/%s/tasks.txt", user.getUserName()));
         }
     }
 
@@ -230,7 +230,7 @@ public class ProjectCreator {
         project.setOwner(user.getUserName());
 
         //Generate project's ID
-        project.setID(String.format("P%04d", Utility.readProjects().size() + 1));
+        project.setID(String.format("P%04d", Utility.readProjects(user.getUserName()).size() + 1));
 
         //Ask for project's name
         do {
@@ -332,7 +332,7 @@ public class ProjectCreator {
 
         /*Update data to database*/
         listProjects.add(project);
-        Utility.writeFile(project, true, "data/projects.txt");
+        Utility.writeFile(project, true, String.format("data/%s/projects.txt", user.getUserName()));
 
         //Print message to user
         System.out.println("=> Project created and added to database successfully!");

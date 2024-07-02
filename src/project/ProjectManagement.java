@@ -17,12 +17,7 @@ public class ProjectManagement {
     //Default constructor
     public ProjectManagement(User user) {
         //Filter the list of projects based on user
-        ArrayList<Project> listProjects = new ArrayList<>();
-        for (Project project : Utility.readProjects()) {
-            if (project.getOwner().equals(user.getUserName())) {
-                listProjects.add(project);
-            }
-        }
+        ArrayList<Project> listProjects = Utility.readProjects(user.getUserName());
 
         //create component for each functionailiy
         this.projectCreator = new ProjectCreator(listProjects, user);

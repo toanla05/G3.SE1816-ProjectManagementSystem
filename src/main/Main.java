@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 //Import user's custome package
 import user.User;
+import utility.Utility;
 import project.ProjectManagement;
 import menu.Menu;
 
@@ -28,6 +29,11 @@ public class Main {
             
             //Get user's username
             String userName = user.getUserName();
+
+            //Create the directory for each user and projects.txt and tasks.txt
+            Utility.createDir(userName);
+            Utility.createFile(String.format("data/%s/projects.txt", userName));
+            Utility.createFile(String.format("data/%s/tasks.txt", userName));
 
             //Set the main program to run infinitely until user choose to log out
             isRunning = true;
