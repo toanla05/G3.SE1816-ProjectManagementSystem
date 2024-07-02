@@ -66,9 +66,9 @@ public class ProjectEditing {
             System.out.print("Press ENTER to continue...");
             sc.nextLine();
         } else {
-        //show project to user
+            //show project to user
             listProjects.get(index).displayProject(index);
-            
+
             boolean statusLoop;
             int option;
             do {
@@ -111,9 +111,10 @@ public class ProjectEditing {
         //print header
         Menu deleteMenu = new Menu();
         deleteMenu.display("DELETE PROJECT", user.getUserName());
-        
+
         deleteMenu.addOption("Delete whole project");
         deleteMenu.addOption("Delete task");
+        deleteMenu.addOption("Exit");
 
         boolean isValid;
         String deleteProject = "";
@@ -145,36 +146,81 @@ public class ProjectEditing {
         } else {
             listProjects.get(index).displayProject(index);
 
-            boolean statusLoop;
-            int option;
+            isValid = false;
+            int option = 0;
+            //Ask for user's option
             do {
-                statusLoop = false;
-                System.out.println("What you want to do:");
-                deleteMenu.display();
-                System.out.print("Please Enter your option: ");
-                option = Integer.parseInt(sc.nextLine());
-                if (option > 2 || option < 1) {
-                    statusLoop = true;
-                    continue;
+                try {
+                    System.out.println("What you want to do about this project:");
+                    deleteMenu.display();
+                    System.out.printf("Enter one option [1, %d]: ", deleteMenu.getMenuSize());
+                    option = Integer.parseInt(sc.nextLine().trim());
+                    isValid = true;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid option!");
+                    isValid = false;
                 }
-            } while (statusLoop);
+            } while (!isValid);
+
             switch (option) {
-                case 1:
+                case 1: {
                     listProjects.remove(index);
                     System.out.println("=> Delete project successfully");
                     System.out.print("Press ENTER to continue...");
                     sc.nextLine();
                     break;
-                case 2:
-                    System.out.print("What task would like to be deleted: ");
-                    String deleteTask = sc.nextLine();
-                    listProjects.get(index).deleteTask(deleteTask);
-                    System.out.println("=> Delete task successfully");
-                    System.out.print("Press ENTER to continue...");
+                }
+                case 2: {
+                    boolean isContinue = false;
+                    do {
+                        //Ask for task's name
+                        String deleteTaskName = "";
+                        do {
+                            try {
+                                System.out.print("Please enter task's name: ");
+                                deleteTaskName = sc.nextLine();
+                                isValid = true;
+                            } catch (IllegalArgumentException e) {
+                                System.out.println("Task's name must be non-empty, not containing '|' and 30 length at most!");
+                                isValid = false;
+                            }
+                        } while (!isValid);
+                        listProjects.get(index).deleteTask(deleteTaskName);
+                        System.out.println("=> Delete task successfully");
+                        do {
+                            isValid = true;
+                            String YoN;
+                            System.out.print("Do you want to continue creating project (Y/N): ");
+                            YoN = sc.nextLine().trim();
+                            if (YoN.equalsIgnoreCase("Y")) {
+                                isContinue = true;
+                            } else if (YoN.equalsIgnoreCase("N")) {
+                                isContinue = false;
+                            } else {
+                                isValid = false;
+                            }
+                            if (!isValid) {
+                                System.out.println("Invalid option!! We only accept 'Y/N' or 'y/n' as valid option");
+                            }
+                        } while (!isValid);
+                    } while (isContinue);
                     sc.nextLine();
                     break;
-                    
+                }
+
             }
+
+            //update into file data
+            if (listProjects.size() == 0) {
+                Project project = null;
+                Utility.writeFile(project, false, String.format("data/%s/projects.txt", user.getUserName()));
+            } else {
+                for (Project project : listProjects) {
+                    Utility.writeFile(project, true, String.format("data/%s/projects.txt", user.getUserName()));
+                }
+
+            }
+
         }
 
     }
