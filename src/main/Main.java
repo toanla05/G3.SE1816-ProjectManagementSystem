@@ -16,6 +16,9 @@ public class Main {
         int option = 0;
         Scanner sc = new Scanner(System.in);
 
+        //Clear console
+        Utility.clearConsole();
+
         //Run the program infinitely until user choose to exit
         do {
             //Create user and print welcome page
@@ -37,9 +40,12 @@ public class Main {
 
             //Set the main program to run infinitely until user choose to log out
             isRunning = true;
-            
+
             //Get user's option 
             do {
+                //Clear console
+                Utility.clearConsole();
+
                 // Menu
                 Menu mainMenu = new Menu();
                 mainMenu.addOption("Add project");
@@ -75,27 +81,32 @@ public class Main {
                 
                 switch (option) {
                     case 1: {
+                        Utility.clearConsole();
                         manager.createProject();
                         break;
                     }
                     case 2: {
-                        //System.out.println("Func 2");
+                        Utility.clearConsole();
                         manager.displayProject();
                         break;
                     }
                     case 3: {
+                        Utility.clearConsole();
                         manager.updateProjectProgress();
                         break;
                     }
                     case 4: {
+                        Utility.clearConsole();
                         manager.deleteProject();
                         break;
                     }
                     case 5: {
+                        Utility.clearConsole(); 
                         manager.makeReport();
                         break;
                     }
                     case 6: {
+                        Utility.clearConsole();
                         isRunning = false;
                         break;
                     }

@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 
 //Import user's custom package
 import menu.Menu;
+import utility.Utility;
 
 public class User {
     private final Scanner sc = new Scanner(System.in);
@@ -50,16 +51,19 @@ public class User {
         boolean exit = true;
         switch (option) {
             case 1: {
+                Utility.clearConsole();
                 this.userName = userSignIn();
                 exit = false;
                 break;
             }
             case 2: {
+                Utility.clearConsole();
                 this.userName = userSignUp();
                 exit = false;
                 break;
             } 
             case 3: {
+                Utility.clearConsole();
                 System.out.println("Thanks for using our service!");
                 exit = true;
                 break;

@@ -29,26 +29,32 @@ public class ProjectManagement {
 
     /*public methods*/
     public void createProject() {
+        Utility.clearConsole();
         projectCreator.addProject();
     }
 
     public void displayProject() {
+        Utility.clearConsole();
         projectDisplayer.display();
     }
     
     public void editProject() {
+        Utility.clearConsole();
         projectEditing.updateProject();
     }
 
     public void updateProjectProgress() {
+        Utility.clearConsole();
         projectEditing.updateProject();
     }
     
     public void deleteProject() {
+        Utility.clearConsole();
         projectEditing.deleteProject();
     }
 
     public void makeReport() {
+        Utility.clearConsole();
         report.createReport();
     }
 }
