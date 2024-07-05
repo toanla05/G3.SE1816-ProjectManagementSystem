@@ -9,8 +9,8 @@ Number of project that does not go over budget: 2
 Project 1: 0.00%
 Project 2: 0.00%
 * Project deadline
-Project 1: 364 days before deadline
-Project 2: 496 days before deadline
+Project 1: 361 days before deadline
+Project 2: 493 days before deadline
 * Project total cost
 Project 1: under budget
 Project 2: under budget

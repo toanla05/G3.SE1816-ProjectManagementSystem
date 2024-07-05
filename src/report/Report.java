@@ -116,11 +116,12 @@ public class Report {
             //Handle each case
             if (option.equalsIgnoreCase("Y")) {
                 //Create report.txt
-                Utility.createFile("data/report.txt");
+                String reportPath = String.format("data/%s/report.txt", user.getUserName());
+                Utility.createFile(reportPath);
 
                 //Write data to file
                 try {
-                    FileWriter writer = new FileWriter(new File("data/report.txt"), false);
+                    FileWriter writer = new FileWriter(new File(reportPath), false);
                     writer.write(result);
                     writer.close();
                 } catch (IOException e) {
@@ -129,13 +130,13 @@ public class Report {
                 
                 //Automatically opening report.txt file
                 try {
-                    Desktop.getDesktop().edit(new File("data/report.txt"));
+                    Desktop.getDesktop().edit(new File(reportPath));
                 } catch (IOException e) {
                     System.out.println("Problem opening report.txt!");
                     e.printStackTrace();
                 }
 
-                System.out.printf("You can also find report file at: %s/data\n", System.getProperty("user.dir"));
+                System.out.printf("You can also find report file at: %s/data/%s\n", System.getProperty("user.dir"), user.getUserName());
             }
         } while (!isValid);
     }

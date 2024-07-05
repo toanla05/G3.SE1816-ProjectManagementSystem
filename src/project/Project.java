@@ -179,10 +179,8 @@ public class Project {
     }
     
     public void checkProject(boolean isCompleted) {
-        int index = 0;
         for (Task task : listTasks) {
-                this.listTasks.get(index).setIsComplete(isCompleted);
-            index++;
+            task.setIsComplete(isCompleted);
         }
     }
 
