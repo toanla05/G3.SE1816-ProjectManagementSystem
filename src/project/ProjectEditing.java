@@ -81,7 +81,6 @@ public class ProjectEditing {
             //show project to user
             listProjects.get(index).displayProject(index);
 
-            isValid = false;
             int option = 0;
             //Ask for user's option
             do {
@@ -199,7 +198,6 @@ public class ProjectEditing {
                     refactorMenu.addOption("Updating Project's Start date and End date");
                     refactorMenu.addOption("Updating Project's initial budget");
 
-                    isValid = false;
                     option = 0;
                     //Ask for user's option
                     do {
@@ -223,20 +221,20 @@ public class ProjectEditing {
                         case 1: {
                             do {
                                 try {
-                                    
+
                                     System.out.print("Enter project's new name: ");
                                     String newName = sc.nextLine();
                                     isValid = !searchProjectByName(newName);
                                     if (!isValid) {
                                         System.out.println("Project's name already exist! Try other name");
                                     } else {
-                                    listProjects.get(index).setName(newName);
+                                        listProjects.get(index).setName(newName);
                                     }
                                 } catch (IllegalArgumentException e) {
                                     System.out.println("Project's name must be non-empty and not containing '|'!");
                                     isValid = false;
                                 }
-          
+
                             } while (!isValid);
                             System.out.println("=> Rename project successfully");
                             System.out.print("Press ENTER to continue...");
@@ -339,17 +337,21 @@ public class ProjectEditing {
 
                 }
 
-                //update into file data
-                if (listProjects.size() == 0) {
-                    Project project = null;
-                    Utility.writeFile(project, false, String.format("data/%s/projects.txt", user.getUserName()));
-                } else {
-                    for (Project project : listProjects) {
-                        Utility.writeFile(project, false, String.format("data/%s/projects.txt", user.getUserName()));
-                    }
+            }
 
+            //update into file data
+            //reset file
+            Project projectNull = null;
+            Task taskNull = null;
+            Utility.writeFile(projectNull, false, String.format("data/%s/projects.txt", user.getUserName()));
+            Utility.writeFile(taskNull, false, String.format("data/%s/tasks.txt", user.getUserName()));
+
+            //write new data
+            for (Project project : listProjects) {
+                Utility.writeFile(project, true, String.format("data/%s/projects.txt", user.getUserName()));
+                for (Task task : project.getListTasks()) {
+                    Utility.writeFile(task, true, String.format("data/%s/tasks.txt", user.getUserName()));
                 }
-
             }
 
         }
@@ -395,7 +397,6 @@ public class ProjectEditing {
         } else {
             listProjects.get(index).displayProject(index);
 
-            isValid = false;
             int option = 0;
             //Ask for user's option
             do {
@@ -463,17 +464,22 @@ public class ProjectEditing {
             }
 
             //update into file data
-            if (listProjects.size() == 0) {
-                Project project = null;
-                Utility.writeFile(project, false, String.format("data/%s/projects.txt", user.getUserName()));
-            } else {
-                for (Project project : listProjects) {
-                    Utility.writeFile(project, false, String.format("data/%s/projects.txt", user.getUserName()));
-                }
+            //reset file
+            Project projectNull = null;
+            Task taskNull = null;
+            Utility.writeFile(projectNull, false, String.format("data/%s/projects.txt", user.getUserName()));
+            Utility.writeFile(taskNull, false, String.format("data/%s/tasks.txt", user.getUserName()));
 
+            //write new data
+            for (Project project : listProjects) {
+                Utility.writeFile(project, true, String.format("data/%s/projects.txt", user.getUserName()));
+                for (Task task : project.getListTasks()) {
+                    Utility.writeFile(task, true, String.format("data/%s/tasks.txt", user.getUserName()));
+                }
             }
 
         }
 
     }
+
 }

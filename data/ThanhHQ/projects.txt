@@ -1,1 +1,2 @@
-ThanhHQ|P0001|Project2|isChanged|1|27/06/2024|27/07/2024|0.0|
+ThanhHQ|P0001|Project 2|isChanged|1|27/06/2024|27/07/2024|0.0|
+ThanhHQ|P0002|Project 1|Test|test|25/07/2024|25/07/2025|3000000.0|BT001|NT003|
