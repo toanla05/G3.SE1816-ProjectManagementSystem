@@ -80,12 +80,10 @@ public class ProjectDisplayer {
     }
 
     private void sortByDate() {
-        ArrayList<Project> sortedList = new ArrayList<>(listProjects);
-        sortedList.sort(Comparator.comparing(Project::getStartDate));
         int index = 1;
-        for (Project project : sortedList) {
+        for (Project project : listProjects) {
+            project.getListTasks().sort(Comparator.comparing(Task::getStartDate));
             project.displayProject(index);
-            index++;
         }
     }
 
